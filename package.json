@@ -1,0 +1,27 @@
+{
+  "name": "nodeplayground",
+  "version": "1.0.0",
+  "description": "My first Node.js app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucaspetry/nodeplayground.git"
+  },
+  "author": "Lucas May Petry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucaspetry/nodeplayground/issues"
+  },
+  "homepage": "https://github.com/lucaspetry/nodeplayground#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "mongoose": "^5.4.10",
+    "play-sound": "^1.1.3",
+    "socket.io": "^2.2.0"
+  }
+}

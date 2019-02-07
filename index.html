@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <audio hidden class="audios" id="yes-audio" controls preload="none"> 
+        <source src="media/errou.mp3" type="audio/mpeg"/>
+    </audio>
+    <audio hidden class="audios" id="alfa-audio" controls preload="none"> 
+        <source src="media/alfa.mp3" type="audio/mpeg"/>
+    </audio>
+</head>
+<body>
+    <br>
+    <div class="container">
+        <h3>Chat Chat</h3>
+        <div class="jumbotron">
+            <h4 class="display-7">Send Message</h4>
+            <input id="name" class="form-control" placeholder="Name">
+            <br>
+            <textarea id="message" class="form-control" placeholder="Your Message Here"></textarea>
+            <br>
+            <button id="send" class="btn btn-success">Send</button>
+            <button id="alfa" class="btn btn btn-warning">Alfa Bakery</button>
+        </div>
+        <div id="messages">
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(() => {
+            $("#send").click(() => {
+                const message = {
+                    name: $("#name").val(),
+                    message: $("#message").val()
+                };
+                sendMessage(message);
+            });
+            $("#alfa").click(() => {
+                const message = {
+                    name: $("#name").val(),
+                    message: "<strong>Panificadora Alfa!</strong><script>$('#alfa-audio').trigger('play');<\/script>"
+                };
+                sendMessage(message);
+            });
+            $('#message').keyup(function(e) {
+                if(e.keyCode == 13) {
+                    const message = {
+                        name: $("#name").val(),
+                        message: $("#message").val()
+                    };
+                    sendMessage(message);
+                }
+            });
+            getMessages();
+        });
+
+        function addMessage(message, media=false) {
+            if(media) {
+                $("#messages").prepend(''.concat('<h5>', message.name, '</h5><p><b>MESSAGE CONTAINING MEDIA</b></p>'));
+            } else {
+                $("#messages").prepend(''.concat('<h5>', message.name, '</h5><p>', message.message, '</p>'));
+            }
+            $('#yes-audio').trigger('play');
+        }
+
+        function getMessages() {
+            $.get($(location).attr("href") + 'messages', (data) => {
+                console.log(data);
+                data.forEach((d) => {
+                    if(d.message.match(/<script>(.)*<\/script>/)) {
+                        addMessage(d, media=true);
+                    } else {
+                        addMessage(d);
+                    }
+                });
+            });
+        }
+
+        function sendMessage(message) {
+            if($("#name").val() == '') {
+                $("#name").val('').focus();    
+            } else {
+                $.post($(location).attr("href") + 'messages', message);
+                $("#message").val('').focus();
+            }
+        }
+
+        var socket = io();
+        socket.on('message', addMessage);
+    </script>
+</body>
+</html>
