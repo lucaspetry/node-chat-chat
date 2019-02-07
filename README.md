@@ -1,2 +1,2 @@
-# nodeplayground
-My first Node.js app
+# Chat Chat
+A simple Node.js app for live chatting. This is revolutionary!

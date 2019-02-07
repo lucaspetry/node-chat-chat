@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucaspetry/nodeplayground.git"
+    "url": "git+https://github.com/lucaspetry/node-chat-chat.git"
   },
   "author": "Lucas May Petry",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lucaspetry/nodeplayground/issues"
+    "url": "https://github.com/lucaspetry/node-chat-chat/issues"
   },
-  "homepage": "https://github.com/lucaspetry/nodeplayground#readme",
+  "homepage": "https://github.com/lucaspetry/node-chat-chat#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
